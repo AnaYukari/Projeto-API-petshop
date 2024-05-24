@@ -3,6 +3,7 @@ package org.serratec.ecommerce.petshop.services;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
+import org.serratec.ecommerce.petshop.dtos.PedidoResumidoDto;
 import org.serratec.ecommerce.petshop.entities.Pedido;
 import org.serratec.ecommerce.petshop.repositories.ItemPedidoRepository;
 import org.serratec.ecommerce.petshop.repositories.PedidoRepository;
@@ -10,7 +11,6 @@ import org.serratec.ecommerce.petshop.repositories.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.org.serratec.eCommerce.Dtos.PedidoResumidoDto;
 import jakarta.persistence.Table;
 
 @Service

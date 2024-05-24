@@ -2,6 +2,7 @@ package org.serratec.ecommerce.petshop.controllers;
 
 import java.util.List;
 
+import org.serratec.ecommerce.petshop.dtos.PedidoResumidoDto;
 import org.serratec.ecommerce.petshop.entities.Pedido;
 import org.serratec.ecommerce.petshop.services.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import br.org.serratec.eCommerce.Dtos.PedidoResumidoDto;
 
 @Controller
 @RequestMapping("/pedidos")

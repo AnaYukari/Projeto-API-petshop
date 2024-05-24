@@ -143,12 +143,4 @@ public class Endereco {
     public void setUf(String uf) {
         this.uf = uf;
     }
-
-//    public void preencherDados(Endereco enderecoViaCep) {
-//        this.cep = enderecoViaCep.getCep();
-//        this.uf = enderecoViaCep.getUf();
-//        this.cidade = enderecoViaCep.getCidade();
-//        this.bairro = enderecoViaCep.getBairro();
-//        this.rua = enderecoViaCep.getRua();
-//    }
 }

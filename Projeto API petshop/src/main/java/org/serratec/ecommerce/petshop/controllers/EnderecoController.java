@@ -38,6 +38,19 @@ public class EnderecoController {
 			return new ResponseEntity<>(endereco, HttpStatus.OK);
 		}
 	}
+    
+    @GetMapping ("/buca-por-cep/{cep}")
+	public ResponseEntity<List<Endereco>>findById(@PathVariable String cep){
+        List<Endereco> enderecosCep = enderecoService.findByCep(cep);
+         
+        if (enderecosCep == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} else {
+			return new ResponseEntity<>(enderecosCep, HttpStatus.OK);
+		}
+	}
+    
+    
 
     @PostMapping
     public ResponseEntity<Endereco> save(@RequestBody Map<String, String> request) {
