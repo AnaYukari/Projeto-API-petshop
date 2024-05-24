@@ -1,4 +1,4 @@
-# Projeto Final de Desenvolvimento de API Restful - E-commerce
+# Projeto Final de Desenvolvimento de API Restful E-commerce
 Projeto desenvolvido durante a Residência TIC/Software do Serratec
 Este repositório contém o código-fonte e a documentação relacionada ao projeto final de Desenvolvimento de API Restful desenvolvido pelo grupo 1 do curso Residência em TIC do Serratec. Aqui, registraremos nossa trajetória na realização do trabalho proposto pela disciplina!
 Antes disso, vale ressaltar que o projeto foi iniciado em outro repósitorio, e devido a alguns problemas, foi movido para este.
