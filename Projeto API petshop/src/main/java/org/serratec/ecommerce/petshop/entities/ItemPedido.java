@@ -1,5 +1,6 @@
 package org.serratec.ecommerce.petshop.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,7 +25,6 @@ public class ItemPedido {
 	@Column(name = "quantidade")
 	private int quantidade;
 
-	@NotNull
 	@Column(name = "preco_venda")
 	private Double precoVenda;
 
@@ -34,11 +34,9 @@ public class ItemPedido {
 	@Column(name = "percentual_desconto")
 	private int percentualDesconto;
 
-	@NotNull
 	@Column(name = "valor_bruto")
 	private Double valorBruto;
 
-	@NotNull
 	@Column(name = "valor_liquido")
 	private Double valorLiquido;
 	
@@ -96,19 +94,19 @@ public class ItemPedido {
 	}
 
 	public Double getValorBruto() {
-		return valorBruto;
+		return getQuantidade() * getPrecoVenda();
 	}
 
 	public void setValorBruto() {
-		this.valorBruto = getQuantidade() * getPrecoVenda();
+		this.valorBruto = valorBruto;
 	}
 
 	public Double getValorLiquido() {
-		return valorLiquido;
+		return getValorBruto()-(((getPercentualDesconto()) / 100.0)*getValorBruto());
 	}
 
 	public void setValorLiquido() {
-		this.valorLiquido = getValorBruto()-(((getPercentualDesconto()) / 100.0)*getValorBruto());
+		this.valorLiquido = valorLiquido;
 	}
 
 	public Produto getProduto() {

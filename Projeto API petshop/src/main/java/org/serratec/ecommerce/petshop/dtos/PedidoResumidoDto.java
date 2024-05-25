@@ -13,7 +13,7 @@ public class PedidoResumidoDto {
 	private LocalDate dataEntrega;
 	private LocalDate dataEnvio;
 	private Cliente cliente;
-	private List<ItemPedido> itemPedido;
+	private List<ItemPedidoDto> itemPedido;
 	public Integer getIdPedido() {
 		return idPedido;
 	}
@@ -38,16 +38,16 @@ public class PedidoResumidoDto {
 	public void setDataEnvio(LocalDate dataEnvio) {
 		this.dataEnvio = dataEnvio;
 	}
-	public Cliente getCliente() {
-		return cliente;
+	public String getCliente() {
+		return cliente.getNomeCompleto();
 	}
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-	public List<ItemPedido> getItemPedido() {
+	public List<ItemPedidoDto> getItemPedido() {
 		return itemPedido;
 	}
-	public void setItemPedido(List<ItemPedido> itemPedido) {
+	public void setItemPedido(List<ItemPedidoDto> itemPedido) {
 		this.itemPedido = itemPedido;
 	}
 

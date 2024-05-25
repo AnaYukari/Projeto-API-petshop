@@ -2,6 +2,7 @@ package org.serratec.ecommerce.petshop.controllers;
 
 import java.util.List;
 
+import org.serratec.ecommerce.petshop.dtos.PedidoResumidoDto;
 import org.serratec.ecommerce.petshop.entities.Pedido;
 import org.serratec.ecommerce.petshop.services.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import br.org.serratec.eCommerce.Dtos.PedidoResumidoDto;
-
 @Controller
 @RequestMapping("/pedidos")
 public class PedidoController {
@@ -26,7 +25,7 @@ public class PedidoController {
 	PedidoService pedidoService;
 	
 	@GetMapping
-	public ResponseEntity<List<Pedido>>findAll(){
+	public ResponseEntity<List<PedidoResumidoDto>>findAll(){
 		return new ResponseEntity<>(pedidoService.findAll(), HttpStatus.OK);
 	}
 	
@@ -41,7 +40,7 @@ public class PedidoController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Pedido>save(@RequestBody PedidoResumidoDto pedido){
+	public ResponseEntity<Pedido>save(@RequestBody Pedido pedido){
 		return new ResponseEntity<>(pedidoService.save(pedido), HttpStatus.CREATED);
 	}
 	

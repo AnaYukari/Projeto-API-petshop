@@ -106,15 +106,15 @@ public class Pedido {
 	}
 
 	public Double getValorTotal() {
-		return valorTotal;
-	}
-
-	public void setValorTotal() {
 		Double valor = 0.0;
 		for (ItemPedido item : itemPedido) {
 			valor += item.getValorLiquido();
 		}
-		this.valorTotal=valor;
+		return valor;
+	}
+
+	public void setValorTotal() {
+		this.valorTotal=valorTotal;
 	}
 
 	public Cliente getCliente() {
