@@ -1,10 +1,18 @@
 package org.serratec.ecommerce.petshop.dtos;
 
 public class ItemPedidoDto {
+	private Integer idItemPedido;
 	private int quantidade;
 	private Double valorLiquido;
 	private ProdutoDto produto;
 
+	public Integer getIdItemPedido() {
+		return idItemPedido;
+	}
+
+	public void setIdItemPedido(Integer idItemPedido) {
+		this.idItemPedido = idItemPedido;
+	}
 	public int getQuantidade() {
 		return quantidade;
 	}

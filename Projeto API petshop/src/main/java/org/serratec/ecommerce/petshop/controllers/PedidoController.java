@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/pedidos")
-public class PedidoController {
+public class 	PedidoController {
 	
 	@Autowired
 	PedidoService pedidoService;
@@ -51,7 +51,7 @@ public class PedidoController {
 	
 	@DeleteMapping ("/{id}")
 	public ResponseEntity<Pedido> delete(@PathVariable Integer id){
-		Pedido pedido = pedidoService.findByIdDelete(id);
+		Pedido pedido = pedidoService.findByIdCompleto(id);
 		if (pedido == null) {
 			return new ResponseEntity<>(pedido,HttpStatus.NOT_FOUND);
 		} else {

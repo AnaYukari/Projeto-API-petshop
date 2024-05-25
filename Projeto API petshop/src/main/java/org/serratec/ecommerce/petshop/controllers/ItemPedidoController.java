@@ -2,6 +2,7 @@ package org.serratec.ecommerce.petshop.controllers;
 
 import java.util.List;
 
+import org.serratec.ecommerce.petshop.dtos.ItemPedidoDto;
 import org.serratec.ecommerce.petshop.entities.ItemPedido;
 import org.serratec.ecommerce.petshop.services.ItemPedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +25,13 @@ public class ItemPedidoController {
 	ItemPedidoService itemPedidoService;
 	
 	@GetMapping
-	public ResponseEntity<List<ItemPedido>>findAll(){
+	public ResponseEntity<List<ItemPedidoDto>>findAll(){
 		return new ResponseEntity<>(itemPedidoService.findAll(), HttpStatus.OK);
 	}
 	
 	@GetMapping ("/{id}")
-	public ResponseEntity<ItemPedido>findById(@PathVariable Integer id){
-		ItemPedido itemPedido = itemPedidoService.findById(id);
+	public ResponseEntity<ItemPedidoDto>findById(@PathVariable Integer id){
+		ItemPedidoDto itemPedido = itemPedidoService.findById(id);
 		if (itemPedido == null) {
 			return new ResponseEntity<>(itemPedido, HttpStatus.NOT_FOUND);
 		} else {
@@ -50,7 +51,7 @@ public class ItemPedidoController {
 	
 	@DeleteMapping ("/{id}")
 	public ResponseEntity<ItemPedido> delete(@PathVariable Integer id){
-		ItemPedido itemPedido = itemPedidoService.findById(id);
+		ItemPedido itemPedido = itemPedidoService.findByIdCompleto(id);
 		if (itemPedido == null) {
 			return new ResponseEntity<>(itemPedido,HttpStatus.NOT_FOUND);
 		} else {

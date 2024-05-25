@@ -78,10 +78,10 @@ public class ItemPedido {
 	}
 
 	public Double getPrecoVenda() {
-		return produto.getValorUnitario();
+		return precoVenda;
 	}
 
-	public void setPrecoVenda(double precoVenda) {
+	public void setPrecoVenda(Double precoVenda) {
 		this.precoVenda = precoVenda;
 	}
 
@@ -94,19 +94,19 @@ public class ItemPedido {
 	}
 
 	public Double getValorBruto() {
-		return getQuantidade() * getPrecoVenda();
+		return valorBruto;
 	}
 
 	public void setValorBruto(Double valorBruto) {
-		this.valorBruto = this.valorBruto;
+		this.valorBruto = valorBruto;
 	}
 
 	public Double getValorLiquido() {
-		return getValorBruto()-(((getPercentualDesconto()) / 100.0)*getValorBruto());
+		return valorLiquido;
 	}
 
 	public void setValorLiquido(Double valorLiquido) {
-		this.valorLiquido = this.valorLiquido;
+		this.valorLiquido = valorLiquido;
 	}
 
 	public Produto getProduto() {

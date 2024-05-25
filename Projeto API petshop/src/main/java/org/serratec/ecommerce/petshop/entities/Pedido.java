@@ -4,16 +4,8 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.List;
 
+import jakarta.persistence.*;
 import org.serratec.ecommerce.petshop.enuns.Status;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 
@@ -37,6 +29,7 @@ public class Pedido {
 	@Column(name = "data_envio")
 	private LocalDate dataEnvio;
 
+	@Enumerated (EnumType.STRING)
 	@Column(name = "status")
 	private Status status;
 
@@ -98,7 +91,7 @@ public class Pedido {
 	}
 
 	public Status getStatus() {
-		return validaStatus();
+		return status;
 	}
 
 	public void setStatus(Status status) {
@@ -106,15 +99,11 @@ public class Pedido {
 	}
 
 	public Double getValorTotal() {
-		Double valor = 0.0;
-		for (ItemPedido item : itemPedido) {
-			valor += item.getValorLiquido();
-		}
-		return valor;
+		return valorTotal;
 	}
 
-	public void setValorTotal(Double valor) {
-		this.valorTotal=valorTotal;
+	public void setValorTotal(Double valorTotal) {
+		this.valorTotal = valorTotal;
 	}
 
 	public Cliente getCliente() {
@@ -133,7 +122,7 @@ public class Pedido {
 		this.itemPedido = itemPedido;
 	}
 
-	public Status validaStatus() {	
+	public Status validaStatus() {
 		if(getDataEntrega()==null && getDataEnvio()==null) {
 			status = Status.PREPARANDO;
 		}

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.serratec.ecommerce.petshop.dtos.PedidoResumidoDto;
+import org.serratec.ecommerce.petshop.entities.ItemPedido;
 import org.serratec.ecommerce.petshop.entities.Pedido;
 import org.serratec.ecommerce.petshop.repositories.ItemPedidoRepository;
 import org.serratec.ecommerce.petshop.repositories.PedidoRepository;
@@ -46,7 +47,7 @@ public class PedidoService {
 		return pedidodto;
 	}
 
-	public Pedido findByIdDelete(Integer id){
+	public Pedido findByIdCompleto(Integer id){
 		return pedidoRepository.findById(id).orElse(null);
 	}
 	
@@ -61,12 +62,13 @@ public class PedidoService {
 			throw new IllegalArgumentException("A data de envio não pode ser depois da data de entrega.");
 		}
 
-		pedido.setStatus(pedido.getStatus());
-		pedido.setValorTotal(pedido.getValorTotal());
+		pedido.setValorTotal(0.0);
+		pedido.setStatus(pedido.validaStatus());
 	    return pedidoRepository.save(pedido);
 	}
 	
 	public Pedido update(Pedido pedido) {
+		pedido.setStatus(pedido.validaStatus());
 		return pedidoRepository.save(pedido);
 	}
 	
@@ -83,5 +85,4 @@ public class PedidoService {
 		}
 		return null;
 	}
-	
 }
