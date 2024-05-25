@@ -51,7 +51,7 @@ public class PedidoController {
 	
 	@DeleteMapping ("/{id}")
 	public ResponseEntity<Pedido> delete(@PathVariable Integer id){
-		Pedido pedido = pedidoService.findById(id);
+		Pedido pedido = pedidoService.findByIdDelete(id);
 		if (pedido == null) {
 			return new ResponseEntity<>(pedido,HttpStatus.NOT_FOUND);
 		} else {

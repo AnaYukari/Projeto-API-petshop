@@ -45,6 +45,10 @@ public class PedidoService {
 		PedidoResumidoDto pedidodto = modelMapper.map(pedido, PedidoResumidoDto.class);
 		return pedidodto;
 	}
+
+	public Pedido findByIdDelete(Integer id){
+		return pedidoRepository.findById(id).orElse(null);
+	}
 	
 	public Pedido save(Pedido pedido) {
 		if (pedido.getDataEnvio() == null && pedido.getDataEntrega() != null) {
