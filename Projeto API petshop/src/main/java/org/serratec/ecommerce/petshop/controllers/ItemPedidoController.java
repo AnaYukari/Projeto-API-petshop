@@ -3,6 +3,7 @@ package org.serratec.ecommerce.petshop.controllers;
 import java.util.List;
 
 import org.serratec.ecommerce.petshop.dtos.ItemPedidoDto;
+import org.serratec.ecommerce.petshop.dtos.PedidoResumidoDto;
 import org.serratec.ecommerce.petshop.entities.ItemPedido;
 import org.serratec.ecommerce.petshop.services.ItemPedidoService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -30,12 +30,12 @@ public class Produto {
 	@NotNull
 	@NotBlank
 	@Size(min = 3, max = 50)
-	@Column(name = "nome")
+	@Column(name = "nome", unique = true)
 	private String nome;
 	
 	@NotNull
 	@NotBlank
-	@Column(unique = true, name = "descricao")
+	@Column(name = "descricao")
 	private String descricao;
 	
 	@NotNull
@@ -51,7 +51,7 @@ public class Produto {
 	@Column(name = "valor_unitario")
 	private double valorUnitario;
 	//Sim, ta temporariamente como string
-	@Column(name = "imagem")
+	@Column(unique = true, name = "imagem")
 	private String imagem;
 	@ManyToOne
     @JoinColumn (name = "id_categoria")

@@ -29,12 +29,12 @@ public class Categoria {
 	@NotNull
 	@NotBlank
 	@Size(min = 3, max = 50)
-	@Column(name = "nome")
+	@Column(name = "nome", unique = true)
 	private String nome;
 	
 	@NotNull
 	@NotBlank
-	@Column(name = "descricao")
+	@Column(name = "descricao", unique = true)
 	private String descricao;
 	
 	@OneToMany(mappedBy = "categoria")

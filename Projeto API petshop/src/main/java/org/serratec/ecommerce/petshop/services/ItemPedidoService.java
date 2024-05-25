@@ -31,6 +31,8 @@ public class ItemPedidoService {
 
 	@Autowired
 	PedidoService pedidoService;
+	@Autowired
+	EmailService emailService;
 
 	@Autowired
 	PedidoController pedidoController;
@@ -64,6 +66,23 @@ public class ItemPedidoService {
 		itemPedido.setValorLiquido(valorLiquido);
 		Pedido pedido = pedidoService.findByIdCompleto(itemPedido.getPedido().getIdPedido());
 		pedido.setValorTotal(pedido.getValorTotal() + valorLiquido);
+		itemPedidoRepository.save(itemPedido);
+
+		PedidoResumidoDto pedidoDto = modelMapper.map(pedido, PedidoResumidoDto.class);
+
+		if (pedido.getDataEnvio()==null && pedido.getDataEntrega()==null) {
+			emailService.enviarEmail(pedido.getCliente().getEmail(), "Pedido Feito com Sucesso", pedidoDto.toString());
+		}
+		if (pedido.getDataEnvio()!=null && pedido.getDataEntrega()==null){
+			emailService.enviarEmail(pedido.getCliente().getEmail(), "Pedido Enviado",
+					"Seu Pedido foi enviado com sucesso!\n" + pedidoDto.toString());
+		}
+		if (pedido.getDataEntrega()!=null){
+			String email = "Seu Pedido foi entregue em " + pedido.getDataEntrega() + " com sucesso!\n"
+					+ pedidoDto.toString() + "\n\n\t\tOBRIGADO POR COMPRAR NA OSWALDINATO PETSHOP ";
+			emailService.enviarEmail(pedido.getCliente().getEmail(), "Pedido Entregue", email);
+		}
+
 		pedidoController.update(pedido);
 		return itemPedidoRepository.save(itemPedido);
 	}

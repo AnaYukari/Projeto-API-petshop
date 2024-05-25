@@ -23,6 +23,8 @@ public class PedidoService {
 
 	@Autowired
 	ModelMapper modelMapper;
+	@Autowired
+	EmailService emailService;
 	
 	@Autowired
     ProdutoRepository produtoRepository;

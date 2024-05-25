@@ -2,8 +2,11 @@ package org.serratec.ecommerce.petshop.controllers;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.serratec.ecommerce.petshop.dtos.PedidoResumidoDto;
+import org.serratec.ecommerce.petshop.entities.ItemPedido;
 import org.serratec.ecommerce.petshop.entities.Pedido;
+import org.serratec.ecommerce.petshop.services.EmailService;
 import org.serratec.ecommerce.petshop.services.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +26,11 @@ public class 	PedidoController {
 	
 	@Autowired
 	PedidoService pedidoService;
+	@Autowired
+	ModelMapper modelMapper;
+
+	@Autowired
+	EmailService emailService;
 	
 	@GetMapping
 	public ResponseEntity<List<PedidoResumidoDto>>findAll(){

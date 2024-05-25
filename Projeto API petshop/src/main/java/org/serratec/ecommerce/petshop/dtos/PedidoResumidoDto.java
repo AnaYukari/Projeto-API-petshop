@@ -72,4 +72,21 @@ public class PedidoResumidoDto {
 		this.itemPedido = itemPedido;
 	}
 
+	public String listaItens(){
+		String itens = " ";
+		for (ItemPedidoDto item : itemPedido){
+			itens += "\n" + "===========\n" + item.toString()  + "\n";
+		}
+		return itens;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("""
+				Codigo do Pedido: %s
+				Data de Pedido: %s
+				Cliente: %s
+				Itens do Pedido: %s
+				Valor total: %2f""", idPedido, dataPedido, cliente.getNomeCompleto(), listaItens(), valorTotal);
+	}
 }

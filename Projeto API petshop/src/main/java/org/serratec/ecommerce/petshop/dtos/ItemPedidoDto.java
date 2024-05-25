@@ -1,10 +1,12 @@
 package org.serratec.ecommerce.petshop.dtos;
 
+import org.serratec.ecommerce.petshop.entities.Produto;
+
 public class ItemPedidoDto {
 	private Integer idItemPedido;
 	private int quantidade;
 	private Double valorLiquido;
-	private ProdutoDto produto;
+	private Produto produto;
 
 	public Integer getIdItemPedido() {
 		return idItemPedido;
@@ -25,10 +27,17 @@ public class ItemPedidoDto {
 	public void setValorLiquido(Double valorLiquido) {
 		this.valorLiquido = valorLiquido;
 	}
-	public ProdutoDto getProduto() {
+	public Produto getProduto() {
 		return produto;
 	}
-	public void setProduto(ProdutoDto produto) {
+	public void setProduto(Produto produto) {
 		this.produto = produto;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("""
+				Produto: %s   x%s
+				Preço: %2f""", produto.getNome(), quantidade, valorLiquido);
 	}
 }
