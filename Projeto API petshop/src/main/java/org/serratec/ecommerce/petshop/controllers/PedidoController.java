@@ -30,8 +30,8 @@ public class PedidoController {
 	}
 	
 	@GetMapping ("/{id}")
-	public ResponseEntity<Pedido>findById(@PathVariable Integer id){
-		Pedido pedido = pedidoService.findById(id);
+	public ResponseEntity<PedidoResumidoDto>findById(@PathVariable Integer id){
+		PedidoResumidoDto pedido = pedidoService.findById(id);
 		if (pedido == null) {
 			return new ResponseEntity<>(pedido, HttpStatus.NOT_FOUND);
 		} else {
