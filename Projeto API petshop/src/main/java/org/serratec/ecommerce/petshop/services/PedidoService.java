@@ -60,6 +60,9 @@ public class PedidoService {
 		}else if (pedido.getDataEnvio() != null && pedido.getDataEntrega() != null && pedido.getDataEnvio().isAfter(pedido.getDataEntrega())) {
 			throw new IllegalArgumentException("A data de envio não pode ser depois da data de entrega.");
 		}
+
+		pedido.setStatus(pedido.getStatus());
+		pedido.setValorTotal(pedido.getValorTotal());
 	    return pedidoRepository.save(pedido);
 	}
 	

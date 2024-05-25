@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.serratec.ecommerce.petshop.entities.Cliente;
 import org.serratec.ecommerce.petshop.entities.ItemPedido;
+import org.serratec.ecommerce.petshop.enuns.Status;
 
 public class PedidoResumidoDto {
 	
@@ -14,6 +15,26 @@ public class PedidoResumidoDto {
 	private LocalDate dataEnvio;
 	private Cliente cliente;
 	private List<ItemPedidoDto> itemPedido;
+	private Double valorTotal;
+
+	private Status status;
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	public Double getValorTotal() {
+		return valorTotal;
+	}
+
+	public void setValorTotal(Double valorTotal) {
+		this.valorTotal = valorTotal;
+	}
+
 	public Integer getIdPedido() {
 		return idPedido;
 	}

@@ -25,6 +25,9 @@ public class ItemPedidoService {
 	}
 	
 	public ItemPedido save(ItemPedido itemPedido) {
+		itemPedido.setPrecoVenda(itemPedido.getPrecoVenda());
+		itemPedido.setValorBruto(itemPedido.getValorBruto());
+		itemPedido.setValorLiquido(itemPedido.getValorLiquido());
 		return itemPedidoRepository.save(itemPedido);
 	}
 	

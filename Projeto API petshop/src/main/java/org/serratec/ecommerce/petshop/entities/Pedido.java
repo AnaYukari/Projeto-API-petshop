@@ -1,5 +1,6 @@
 package org.serratec.ecommerce.petshop.entities;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -46,21 +47,22 @@ public class Pedido {
 	@ManyToOne
 	@JoinColumn(name = "idCliente")
 	private Cliente cliente;
-	
+
 	@OneToMany(mappedBy = "pedido")
 	private List<ItemPedido> itemPedido;
 
-	public Pedido() {
-	}
-
-	public Pedido(Integer idPedido, LocalDate dataPedido, LocalDate dataEntrega, LocalDate dataEnvio, Status status,
-			Double valorTotal) {
+	public Pedido(Integer idPedido, LocalDate dataPedido, LocalDate dataEntrega, LocalDate dataEnvio, Status status, Double valorTotal, Cliente cliente, List<ItemPedido> itemPedido) {
 		this.idPedido = idPedido;
 		this.dataPedido = dataPedido;
 		this.dataEntrega = dataEntrega;
 		this.dataEnvio = dataEnvio;
 		this.status = status;
 		this.valorTotal = valorTotal;
+		this.cliente = cliente;
+		this.itemPedido = itemPedido;
+	}
+
+	public Pedido() {
 	}
 
 	public Integer getIdPedido() {
@@ -111,7 +113,7 @@ public class Pedido {
 		return valor;
 	}
 
-	public void setValorTotal() {
+	public void setValorTotal(Double valor) {
 		this.valorTotal=valorTotal;
 	}
 

@@ -1,6 +1,5 @@
 package org.serratec.ecommerce.petshop.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -39,26 +38,27 @@ public class ItemPedido {
 
 	@Column(name = "valor_liquido")
 	private Double valorLiquido;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_produto")
 	private Produto produto;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_pedido")
 	private Pedido pedido;
 
-	public ItemPedido() {
-	}
-
-	public ItemPedido(Integer idItemPedido, int quantidade, Double precoVenda, int percentualDesconto,
-			Double valorBruto, Double valorLiquido) {
+	public ItemPedido(Integer idItemPedido, int quantidade, Double precoVenda, int percentualDesconto, Double valorBruto, Double valorLiquido, Produto produto, Pedido pedido) {
 		this.idItemPedido = idItemPedido;
 		this.quantidade = quantidade;
 		this.precoVenda = precoVenda;
 		this.percentualDesconto = percentualDesconto;
 		this.valorBruto = valorBruto;
 		this.valorLiquido = valorLiquido;
+		this.produto = produto;
+		this.pedido = pedido;
+	}
+
+	public ItemPedido() {
 	}
 
 	public Integer getIdItemPedido() {
@@ -97,16 +97,16 @@ public class ItemPedido {
 		return getQuantidade() * getPrecoVenda();
 	}
 
-	public void setValorBruto() {
-		this.valorBruto = valorBruto;
+	public void setValorBruto(Double valorBruto) {
+		this.valorBruto = this.valorBruto;
 	}
 
 	public Double getValorLiquido() {
 		return getValorBruto()-(((getPercentualDesconto()) / 100.0)*getValorBruto());
 	}
 
-	public void setValorLiquido() {
-		this.valorLiquido = valorLiquido;
+	public void setValorLiquido(Double valorLiquido) {
+		this.valorLiquido = this.valorLiquido;
 	}
 
 	public Produto getProduto() {

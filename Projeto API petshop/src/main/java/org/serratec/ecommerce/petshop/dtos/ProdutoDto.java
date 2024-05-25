@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ProdutoDto {
 	private String nome;
-	private double valorUnitario;	
+	private Double valorUnitario;
     private Categoria categoria;
 
 	public String getNome() {
@@ -16,10 +16,10 @@ public class ProdutoDto {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public double getValorUnitario() {
+	public Double getValorUnitario() {
 		return valorUnitario;
 	}
-	public void setValorUnitario(double valorUnitario) {
+	public void setValorUnitario(Double valorUnitario) {
 		this.valorUnitario = valorUnitario;
 	}
 	public String getCategoria() {
