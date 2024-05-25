@@ -3,8 +3,6 @@ package org.serratec.ecommerce.petshop.entities;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import org.serratec.ecommerce.petshop.enuns.Status;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -135,13 +133,13 @@ public class Pedido {
 
 	public Status validaStatus() {	
 		if(getDataEntrega()==null && getDataEnvio()==null) {
-			status = status.PREPARANDO;
+			status = Status.PREPARANDO;
 		}
 		if(getDataEnvio()!= null && getDataEntrega()==null) {
-			status = status.ENVIADO;
+			status = Status.ENVIADO;
 		}
 		if(getDataEntrega()!=null) {
-			status = status.ENTREGUE;
+			status = Status.ENTREGUE;
 		}
 		return status;
 	}

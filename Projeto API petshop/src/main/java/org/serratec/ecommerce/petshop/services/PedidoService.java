@@ -11,6 +11,7 @@ import org.serratec.ecommerce.petshop.repositories.PedidoRepository;
 import org.serratec.ecommerce.petshop.repositories.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import jakarta.persistence.Table;
 
 @Service
