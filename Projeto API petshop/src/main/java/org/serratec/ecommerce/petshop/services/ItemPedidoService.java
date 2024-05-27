@@ -68,7 +68,7 @@ public class ItemPedidoService {
 		pedido.setValorTotal(pedido.getValorTotal() + valorLiquido);
 		itemPedidoRepository.save(itemPedido);
 
-		pedidoController.update(pedido);
+		pedidoController.atualizaItem(pedido);
 		return itemPedidoRepository.save(itemPedido);
 	}
 	

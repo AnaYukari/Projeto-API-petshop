@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
+import org.serratec.ecommerce.petshop.controllers.PedidoController;
 import org.serratec.ecommerce.petshop.dtos.PedidoResumidoDto;
 import org.serratec.ecommerce.petshop.entities.Pedido;
 import org.serratec.ecommerce.petshop.repositories.ItemPedidoRepository;
@@ -27,6 +28,9 @@ public class PedidoService {
 	
 	@Autowired
     ProdutoRepository produtoRepository;
+
+	@Autowired
+	PedidoController pedidoController;
 
 	@Autowired
 	ItemPedidoRepository itemPedidoRepository;
@@ -73,16 +77,9 @@ public class PedidoService {
 		PedidoResumidoDto pedidoDto = findById(id);
 
 		if (pedido.getDataEnvio()==null && pedido.getDataEntrega()==null) {
-			emailService.enviarEmail(pedido.getCliente().getEmail(), "Pedido Feito com Sucesso", pedidoDto.toString());
+			emailService.enviarEmail(pedido.getCliente().getEmail(),
+					"Pedido Feito com Sucesso", pedidoDto.toString());
 		}
-		
-		return "Pedido feito com sucesso";
-	}
-	
-	public PedidoResumidoDto update(Pedido pedido) {
-		PedidoResumidoDto pedidoDto = modelMapper.map(pedido,PedidoResumidoDto.class);
-		pedido.setStatus(pedido.validaStatus()); 
-		pedidoRepository.save(pedido);
 		if (pedido.getDataEnvio()!=null && pedido.getDataEntrega()==null){
 			emailService.enviarEmail(pedido.getCliente().getEmail(), "Pedido Enviado",
 					"Seu Pedido foi enviado com sucesso!\n" + pedidoDto.toString());
@@ -92,9 +89,21 @@ public class PedidoService {
 					+ pedidoDto.toString() + "\n\n\t\tOBRIGADO POR COMPRAR NA OSWALDINATO PETSHOP ";
 			emailService.enviarEmail(pedido.getCliente().getEmail(), "Pedido Entregue", email);
 		}
-		return pedidoDto;
+		return "Email enviado com sucesso";
 	}
 	
+	public PedidoResumidoDto update(Pedido pedido) {
+		PedidoResumidoDto pedidoDto = modelMapper.map(pedido,PedidoResumidoDto.class);
+		pedido.setStatus(pedido.validaStatus()); 
+		pedidoRepository.save(pedido);
+		pedidoController.enviarEmail(pedido.getIdPedido());
+		return pedidoDto;
+	}
+	public String atualizaItem(Pedido pedido){
+		pedido.setStatus(pedido.validaStatus());
+		pedidoRepository.save(pedido);
+		return "Pedido Atualizado";
+	}
 	public Pedido delete(Integer id) {
 		if (pedidoRepository.existsById(id) == true) {
 			Pedido pedidoDeletado = pedidoRepository.findById(id).orElse(null);

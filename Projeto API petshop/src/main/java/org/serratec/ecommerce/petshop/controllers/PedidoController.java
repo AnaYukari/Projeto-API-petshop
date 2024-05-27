@@ -60,7 +60,11 @@ public class 	PedidoController {
 	public ResponseEntity<PedidoResumidoDto> update (@RequestBody Pedido pedido){
 		return new ResponseEntity<>(pedidoService.update(pedido), HttpStatus.OK);
 	}
-	
+
+	@PutMapping("atualiza-item")
+	public ResponseEntity<String> atualizaItem (@RequestBody Pedido pedido){
+		return new ResponseEntity<>(pedidoService.atualizaItem(pedido), HttpStatus.OK);
+	}
 	@DeleteMapping ("/{id}")
 	public ResponseEntity<Pedido> delete(@PathVariable Integer id){
 		Pedido pedido = pedidoService.findByIdCompleto(id);

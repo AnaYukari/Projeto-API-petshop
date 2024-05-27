@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -50,9 +51,9 @@ public class Produto {
 	@NotNull
 	@Column(name = "valor_unitario")
 	private double valorUnitario;
-	//Sim, ta temporariamente como string
-	@Column(unique = true, name = "imagem")
-	private String imagem;
+	@Lob
+	@Column(columnDefinition = "bytea")
+	private byte[] imagem;
 	@ManyToOne
     @JoinColumn (name = "id_categoria")
     private Categoria categoria;
@@ -64,7 +65,7 @@ public class Produto {
 	}
 	
 	public Produto(Integer idProduto, String nome, String descricao, int qtdEstoque, Date dataCadastro,
-			double valorUnitario, String imagem) {
+			double valorUnitario, byte[] imagem) {
 		this.idProduto = idProduto;
 		this.nome = nome;
 		this.descricao = descricao;
@@ -122,11 +123,11 @@ public class Produto {
 		this.valorUnitario = valorUnitario;
 	}
 
-	public String getImagem() {
+	public byte[] getImagem() {
 		return imagem;
 	}
 
-	public void setImagem(String imagem) {
+	public void setImagem(byte[] imagem) {
 		this.imagem = imagem;
 	}
 
