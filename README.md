@@ -56,14 +56,19 @@ Após a instalação, a API estará disponível para uso. Você pode acessar a d
 
 ```javascript
 http://localhost:8000/swagger-ui.html
-
 ```
+> [!WARNING]
+> Esse link só funcionará caso sua API estiver rodando!
+
+
+
 É importante ressaltar que os relatórios de pedidos foram implementados usando o site mailtrap, lembre-se de alterar essas proprieades no seu application.properties:
 
 ```javascript
 spring.mail.username=SEUUSERNAME
 spring.mail.password=SUASENHA
 ```
+- https://mailtrap.io/home
 
 ## Integrantes do Grupo
 
