@@ -41,7 +41,7 @@ public class Cliente {
 	private String cpf;
 
 	@Column(name = "telefone")
-	 @NotBlank(message = "O campo telefone não pode ser vazio.")
+	@NotBlank(message = "O campo telefone não pode ser vazio.")
 	private String telefone;
 
 	@Column(name = "data_nascimento")

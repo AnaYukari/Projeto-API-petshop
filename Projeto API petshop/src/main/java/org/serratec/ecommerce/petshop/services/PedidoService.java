@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.serratec.ecommerce.petshop.dtos.PedidoResumidoDto;
-import org.serratec.ecommerce.petshop.entities.ItemPedido;
 import org.serratec.ecommerce.petshop.entities.Pedido;
 import org.serratec.ecommerce.petshop.repositories.ItemPedidoRepository;
 import org.serratec.ecommerce.petshop.repositories.PedidoRepository;
@@ -69,9 +68,31 @@ public class PedidoService {
 	    return pedidoRepository.save(pedido);
 	}
 	
-	public Pedido update(Pedido pedido) {
-		pedido.setStatus(pedido.validaStatus());
-		return pedidoRepository.save(pedido);
+	public String enviarEmail(Integer id) {
+		Pedido pedido = findByIdCompleto(id);
+		PedidoResumidoDto pedidoDto = findById(id);
+
+		if (pedido.getDataEnvio()==null && pedido.getDataEntrega()==null) {
+			emailService.enviarEmail(pedido.getCliente().getEmail(), "Pedido Feito com Sucesso", pedidoDto.toString());
+		}
+		
+		return "Pedido feito com sucesso";
+	}
+	
+	public PedidoResumidoDto update(Pedido pedido) {
+		PedidoResumidoDto pedidoDto = modelMapper.map(pedido,PedidoResumidoDto.class);
+		pedido.setStatus(pedido.validaStatus()); 
+		pedidoRepository.save(pedido);
+		if (pedido.getDataEnvio()!=null && pedido.getDataEntrega()==null){
+			emailService.enviarEmail(pedido.getCliente().getEmail(), "Pedido Enviado",
+					"Seu Pedido foi enviado com sucesso!\n" + pedidoDto.toString());
+		}
+		if (pedido.getDataEntrega()!=null){
+			String email = "Seu Pedido foi entregue em " + pedido.getDataEntrega() + " com sucesso!\n"
+					+ pedidoDto.toString() + "\n\n\t\tOBRIGADO POR COMPRAR NA OSWALDINATO PETSHOP ";
+			emailService.enviarEmail(pedido.getCliente().getEmail(), "Pedido Entregue", email);
+		}
+		return pedidoDto;
 	}
 	
 	public Pedido delete(Integer id) {

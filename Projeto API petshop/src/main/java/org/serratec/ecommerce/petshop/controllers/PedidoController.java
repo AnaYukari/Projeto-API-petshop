@@ -51,8 +51,13 @@ public class 	PedidoController {
 		return new ResponseEntity<>(pedidoService.save(pedido), HttpStatus.CREATED);
 	}
 	
+	@GetMapping ("/relatorioPedido/{id}")
+	public ResponseEntity<String>enviarEmail(@PathVariable Integer id){
+		return new ResponseEntity<>(pedidoService.enviarEmail(id), HttpStatus.OK);
+	}
+	
 	@PutMapping
-	public ResponseEntity<Pedido> update (@RequestBody Pedido pedido){
+	public ResponseEntity<PedidoResumidoDto> update (@RequestBody Pedido pedido){
 		return new ResponseEntity<>(pedidoService.update(pedido), HttpStatus.OK);
 	}
 	

@@ -1,10 +1,13 @@
 package org.serratec.ecommerce.petshop.dtos;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 import org.serratec.ecommerce.petshop.entities.Cliente;
-import org.serratec.ecommerce.petshop.entities.ItemPedido;
 import org.serratec.ecommerce.petshop.enuns.Status;
 
 public class PedidoResumidoDto {
@@ -75,18 +78,25 @@ public class PedidoResumidoDto {
 	public String listaItens(){
 		String itens = " ";
 		for (ItemPedidoDto item : itemPedido){
-			itens += "\n" + "===========\n" + item.toString()  + "\n";
+			itens += "\n\n" + "===========\n" + item.toString();
 		}
 		return itens;
+	}
+	
+	public String formataData(LocalDate dataPedido) {
+		DateTimeFormatter dataFormatada = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		String data = dataFormatada.format(dataPedido);
+		return data;
 	}
 
 	@Override
 	public String toString() {
 		return String.format("""
-				Codigo do Pedido: %s
+				Código do Pedido: %s
 				Data de Pedido: %s
 				Cliente: %s
 				Itens do Pedido: %s
-				Valor total: %2f""", idPedido, dataPedido, cliente.getNomeCompleto(), listaItens(), valorTotal);
+				
+				Valor total: R$%.2f""", idPedido, formataData(dataPedido), cliente.getNomeCompleto(), listaItens(), valorTotal);
 	}
 }
