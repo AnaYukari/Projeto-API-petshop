@@ -51,8 +51,8 @@ public class Produto {
 	@NotNull
 	@Column(name = "valor_unitario")
 	private double valorUnitario;
-	@Lob
-	@Column(columnDefinition = "bytea")
+
+	@Column(columnDefinition = "bytea", name = "imagem")
 	private byte[] imagem;
 	@ManyToOne
     @JoinColumn (name = "id_categoria")

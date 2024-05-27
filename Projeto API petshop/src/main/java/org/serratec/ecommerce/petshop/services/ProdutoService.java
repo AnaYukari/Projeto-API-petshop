@@ -1,11 +1,14 @@
 package org.serratec.ecommerce.petshop.services;
 
+import java.io.IOException;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
 import org.serratec.ecommerce.petshop.entities.Produto;
 import org.serratec.ecommerce.petshop.repositories.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class ProdutoService {
@@ -20,9 +23,11 @@ public class ProdutoService {
 		return produtoRepository.findById(id).orElse(null);
 	}
 
-	public Produto save(Produto produto) {
+	public Produto save(MultipartFile file, Produto produto) throws IOException {
+		produto.setImagem(file.getBytes());
 		return produtoRepository.save(produto);
 	}
+
 
 	public Produto update(Produto produto) {
 		return produtoRepository.save(produto);

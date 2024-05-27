@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
+import org.serratec.ecommerce.petshop.controllers.EmailController;
 import org.serratec.ecommerce.petshop.controllers.PedidoController;
 import org.serratec.ecommerce.petshop.dtos.PedidoResumidoDto;
 import org.serratec.ecommerce.petshop.entities.Pedido;
@@ -25,15 +26,9 @@ public class PedidoService {
 	ModelMapper modelMapper;
 	@Autowired
 	EmailService emailService;
-	
-	@Autowired
-    ProdutoRepository produtoRepository;
 
 	@Autowired
-	PedidoController pedidoController;
-
-	@Autowired
-	ItemPedidoRepository itemPedidoRepository;
+	EmailController emailController;
 	
 	public List<PedidoResumidoDto> findAll(){
 		List<Pedido> pedidos = pedidoRepository.findAll();
@@ -96,7 +91,7 @@ public class PedidoService {
 		PedidoResumidoDto pedidoDto = modelMapper.map(pedido,PedidoResumidoDto.class);
 		pedido.setStatus(pedido.validaStatus()); 
 		pedidoRepository.save(pedido);
-		pedidoController.enviarEmail(pedido.getIdPedido());
+		emailController.enviarEmail(pedido.getIdPedido());
 		return pedidoDto;
 	}
 	public String atualizaItem(Pedido pedido){
