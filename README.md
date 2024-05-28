@@ -5,7 +5,7 @@
 </h1>
 
 
-# Projeto Final de Desenvolvimento de API Restful
+# Projeto API Restful e-Commerce Oswaldinato PetShop
 
 Projeto desenvolvido durante a Residência TIC/Software do Serratec
 
