@@ -25,15 +25,13 @@ public class Categoria {
 	
 	@Column(name = "id_categoria")
 	private Integer idCategoria;
-	
-	@NotNull
-	@NotBlank
+
+	@NotBlank(message = "O campo nome não pode ser vazio.")
 	@Size(min = 3, max = 50)
 	@Column(name = "nome", unique = true)
 	private String nome;
-	
-	@NotNull
-	@NotBlank
+
+	@NotBlank (message = "O campo descricao não pode ser vazio.")
 	@Column(name = "descricao", unique = true)
 	private String descricao;
 	

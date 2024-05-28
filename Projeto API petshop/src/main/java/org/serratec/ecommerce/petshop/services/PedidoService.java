@@ -8,6 +8,7 @@ import org.serratec.ecommerce.petshop.controllers.EmailController;
 import org.serratec.ecommerce.petshop.controllers.PedidoController;
 import org.serratec.ecommerce.petshop.dtos.PedidoResumidoDto;
 import org.serratec.ecommerce.petshop.entities.Pedido;
+import org.serratec.ecommerce.petshop.exceptions.EntidadeNotFoundException;
 import org.serratec.ecommerce.petshop.repositories.ItemPedidoRepository;
 import org.serratec.ecommerce.petshop.repositories.PedidoRepository;
 import org.serratec.ecommerce.petshop.repositories.ProdutoRepository;
@@ -42,13 +43,17 @@ public class PedidoService {
 	}
 	
 	public PedidoResumidoDto findById(Integer id) {
-		Pedido pedido = pedidoRepository.findById(id).orElse(null);
+		Pedido pedido = pedidoRepository.findById(id).orElseThrow(
+				() -> new EntidadeNotFoundException
+						("Não foi encontrado um Pedido com o id " + id));
 		PedidoResumidoDto pedidodto = modelMapper.map(pedido, PedidoResumidoDto.class);
 		return pedidodto;
 	}
 
 	public Pedido findByIdCompleto(Integer id){
-		return pedidoRepository.findById(id).orElse(null);
+		return pedidoRepository.findById(id).orElseThrow(
+				() -> new EntidadeNotFoundException
+						("Não foi encontrado um Pedido com o id " + id));
 	}
 	
 	public Pedido save(Pedido pedido) {
@@ -89,6 +94,7 @@ public class PedidoService {
 	
 	public PedidoResumidoDto update(Pedido pedido) {
 		PedidoResumidoDto pedidoDto = modelMapper.map(pedido,PedidoResumidoDto.class);
+		pedidoDto.setValorTotal(pedido.getValorTotal());
 		pedido.setStatus(pedido.validaStatus()); 
 		pedidoRepository.save(pedido);
 		emailController.enviarEmail(pedido.getIdPedido());

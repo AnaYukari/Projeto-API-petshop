@@ -5,11 +5,13 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.serratec.ecommerce.petshop.controllers.PedidoController;
+import org.serratec.ecommerce.petshop.controllers.ProdutoController;
 import org.serratec.ecommerce.petshop.dtos.ItemPedidoDto;
 import org.serratec.ecommerce.petshop.dtos.PedidoResumidoDto;
 import org.serratec.ecommerce.petshop.entities.ItemPedido;
 import org.serratec.ecommerce.petshop.entities.Pedido;
 import org.serratec.ecommerce.petshop.entities.Produto;
+import org.serratec.ecommerce.petshop.exceptions.EntidadeNotFoundException;
 import org.serratec.ecommerce.petshop.repositories.ItemPedidoRepository;
 import org.serratec.ecommerce.petshop.repositories.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,17 +27,16 @@ public class ItemPedidoService {
 	ItemPedidoRepository itemPedidoRepository;
 	@Autowired
 	ModelMapper modelMapper;
-
 	@Autowired
 	ProdutoService produtoService;
-
 	@Autowired
 	PedidoService pedidoService;
 	@Autowired
 	EmailService emailService;
-
 	@Autowired
 	PedidoController pedidoController;
+	@Autowired
+	ProdutoController produtoController;
 	public List<ItemPedidoDto> findAll(){
 		List<ItemPedido> itensPedidos = itemPedidoRepository.findAll();
 		List<ItemPedidoDto> itensPedidosDto = new ArrayList<>();
@@ -48,18 +49,24 @@ public class ItemPedidoService {
 	}
 	
 	public ItemPedidoDto findById(Integer id) {
-		ItemPedido itemPedido = itemPedidoRepository.findById(id).orElse(null);
+		ItemPedido itemPedido = itemPedidoRepository.findById(id).orElseThrow(
+				() -> new EntidadeNotFoundException
+						("Não foi encontrado um ItemPedido com o id " + id)
+		);
 		ItemPedidoDto itemPedidoDto = modelMapper.map(itemPedido, ItemPedidoDto.class);
 		return itemPedidoDto;
 	}
 	public ItemPedido findByIdCompleto(Integer id) {
-		return itemPedidoRepository.findById(id).orElse(null);
+		return itemPedidoRepository.findById(id).orElseThrow(
+				() -> new EntidadeNotFoundException
+						("Não foi encontrado um ItemPedido com o id " + id));
 	}
 	
 	public ItemPedido save(ItemPedido itemPedido) {
-		Produto produto = produtoService.findById(itemPedido.getProduto().getIdProduto());
+		Produto produto = produtoService.findByIdcompleto(itemPedido.getProduto().getIdProduto());
 		Double precoVenda = produto.getValorUnitario();
 		itemPedido.setPrecoVenda(precoVenda);
+		produto.setQtdEstoque(produto.getQtdEstoque()-itemPedido.getQuantidade());
 		Double valorBruto = precoVenda * itemPedido.getQuantidade();
 		itemPedido.setValorBruto(valorBruto);
 		Double valorLiquido = valorBruto - (valorBruto * itemPedido.getPercentualDesconto()/100);
@@ -68,6 +75,7 @@ public class ItemPedidoService {
 		pedido.setValorTotal(pedido.getValorTotal() + valorLiquido);
 		itemPedidoRepository.save(itemPedido);
 
+		produtoController.updateProduto(produto);
 		pedidoController.atualizaItem(pedido);
 		return itemPedidoRepository.save(itemPedido);
 	}

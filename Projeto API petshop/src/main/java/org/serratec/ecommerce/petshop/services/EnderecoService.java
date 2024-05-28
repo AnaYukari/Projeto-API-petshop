@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.serratec.ecommerce.petshop.entities.Endereco;
+import org.serratec.ecommerce.petshop.exceptions.EntidadeNotFoundException;
 import org.serratec.ecommerce.petshop.repositories.EnderecoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,10 @@ public class EnderecoService {
 	}
 
 	public Endereco findById(Integer id) {
-		return enderecoRepository.findById(id).orElse(null);
+		return enderecoRepository.findById(id).orElseThrow(
+				() -> new EntidadeNotFoundException
+						("Não foi encontrado um Endereço com o id " + id)
+		);
 	}
 
 	public Endereco save(String cep, Endereco endereco) {

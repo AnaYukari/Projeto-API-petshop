@@ -20,7 +20,7 @@ public class ItemPedido {
 	@Column(name = "id_item_pedido")
 	private Integer idItemPedido;
 
-	@NotNull
+	@NotNull (message = "O campo quantidade não pode ser vazio.")
 	@Column(name = "quantidade")
 	private int quantidade;
 
@@ -29,7 +29,7 @@ public class ItemPedido {
 
 	@Min(0)
 	@Max(100)
-	@NotNull
+	@NotNull (message = "O campo PercentualDesconto não pode ser vazio.")
 	@Column(name = "percentual_desconto")
 	private int percentualDesconto;
 

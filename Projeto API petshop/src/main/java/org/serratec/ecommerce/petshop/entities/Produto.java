@@ -27,19 +27,17 @@ public class Produto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_produto")
 	private Integer idProduto;
-	
-	@NotNull
-	@NotBlank
+
+	@NotBlank (message = "Produto precisa de um nome")
 	@Size(min = 3, max = 50)
 	@Column(name = "nome", unique = true)
 	private String nome;
-	
-	@NotNull
-	@NotBlank
+
+	@NotBlank (message = "Produto precisa de uma descricao")
 	@Column(name = "descricao")
 	private String descricao;
 	
-	@NotNull
+	@NotNull (message = "O estoque deve ser um numero valido")
 	@Column(name = "qtd_estoque")
 	private int qtdEstoque;
 	
@@ -48,7 +46,7 @@ public class Produto {
 	@Column(name = "data_cadastro")
 	private Date dataCadastro;
 	
-	@NotNull
+	@NotNull (message = "Produto precisa de um valor")
 	@Column(name = "valor_unitario")
 	private double valorUnitario;
 

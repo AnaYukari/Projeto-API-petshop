@@ -36,7 +36,7 @@ public class Pedido {
 	@Column(name = "valor_total")
 	private Double valorTotal;
 
-	@NotNull
+	@NotNull  (message = "O campo IdCliente não pode ser vazio.")
 	@ManyToOne
 	@JoinColumn(name = "idCliente")
 	private Cliente cliente;

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -19,9 +20,32 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import io.micrometer.common.lang.Nullable;
+import jakarta.validation.ConstraintViolationException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+	
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	ProblemDetail handleIlDataIntegrityViolationException(DataIntegrityViolationException e) {
+
+		ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR,
+				"Ocorreu um erro: '" + e.getLocalizedMessage());
+		pd.setType(URI.create("http://localhost:8080/errors/internal-server-error"));
+		pd.setTitle("Erro na inserção de dados");
+		pd.setProperty("hostname", "localhost");
+		return pd;
+	}
+	
+	@ExceptionHandler(ConstraintViolationException.class)
+	ProblemDetail handleIlConstraintViolationException(ConstraintViolationException e) {
+
+		ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR,
+				"Ocorreu um erro: '" + e.getLocalizedMessage());
+		pd.setType(URI.create("http://localhost:8080/errors/internal-server-error"));
+		pd.setTitle("Erro na entrada");
+		pd.setProperty("hostname", "localhost");
+		return pd;
+	}
 
 	@ExceptionHandler(IllegalArgumentException.class)
 	ProblemDetail handleIllegalArgumentException(IllegalArgumentException e) {
@@ -40,7 +64,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 				"Ocorreu um erro: " + e.getLocalizedMessage());
 
 		problemDetail.setTitle("Recurso Não Encontrado");
-		problemDetail.setType(URI.create("https://api.biblioteca.com/errors/not-found"));
+		problemDetail.setType(URI.create("https://api.API petshop.com/errors/not-found"));
 		return problemDetail;
 	}
 	
@@ -49,7 +73,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
 
 		problemDetail.setTitle("Recurso Não Encontrado");
-		problemDetail.setType(URI.create("https://api.biblioteca.com/errors/not-found"));
+		problemDetail.setType(URI.create("https://api.API petshop.com/errors/not-found"));
 		return problemDetail;
 	}
 
@@ -62,7 +86,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 			problemDetailBody.setProperty("message", ex.getMessage());
 			if (ex instanceof MethodArgumentNotValidException subEx) {
 				BindingResult result = subEx.getBindingResult();
-				problemDetailBody.setType(URI.create("http://api.biblioteca.com/erros/argument-not-valid"));
+				problemDetailBody.setType(URI.create("http://api.API petshop.com/erros/argument-not-valid"));
 				problemDetailBody.setTitle("Erro na requisição");
 				problemDetailBody.setDetail("Ocorreu um erro ao processar a Requisição");
 				problemDetailBody.setProperty("message", "Falha na Validação do Objeto '" + result.getObjectName()

@@ -2,7 +2,9 @@ package org.serratec.ecommerce.petshop.controllers;
 
 import java.util.List;
 
+import org.serratec.ecommerce.petshop.dtos.ProdutoDto;
 import org.serratec.ecommerce.petshop.entities.Categoria;
+import org.serratec.ecommerce.petshop.entities.Produto;
 import org.serratec.ecommerce.petshop.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -57,19 +59,14 @@ public class CategoriaController {
 			return new ResponseEntity<>(categoria, HttpStatus.OK);
 		}
 	}
-	/*
-	@GetMapping("/{id}/produto")
-	public ResponseEntity<?> findEmprestimoByAlunoId(@PathVariable Integer id){
-		Categoria categoria = categoriaService.findById(id);
-		List<Produto> produtos = categoriaService.findEmprestimoByAlunoId(id);
 
-		if (categoria == null){
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aluno não registrado!");
-		}
+	@GetMapping("/{id}/produto")
+	public ResponseEntity<?> findProdutoByCategoriaId(@PathVariable Integer id){
+		Categoria categoria = categoriaService.findById(id);
+		List<ProdutoDto> produtos = categoriaService.findProdutoByCategoriaId(id);
 		if (produtos == null){
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aluno sem registros de emprestimos!");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Categoria sem produtos registrados");
 		}
 		return new ResponseEntity<>(produtos, HttpStatus.OK);
 	}
-	*/
 }
