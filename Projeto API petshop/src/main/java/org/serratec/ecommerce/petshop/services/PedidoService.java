@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.serratec.ecommerce.petshop.controllers.EmailController;
 import org.serratec.ecommerce.petshop.controllers.PedidoController;
 import org.serratec.ecommerce.petshop.dtos.PedidoResumidoDto;
+import org.serratec.ecommerce.petshop.entities.ItemPedido;
 import org.serratec.ecommerce.petshop.entities.Pedido;
 import org.serratec.ecommerce.petshop.exceptions.EntidadeNotFoundException;
 import org.serratec.ecommerce.petshop.repositories.ItemPedidoRepository;
@@ -27,9 +28,6 @@ public class PedidoService {
 	ModelMapper modelMapper;
 	@Autowired
 	EmailService emailService;
-
-	@Autowired
-	EmailController emailController;
 	
 	public List<PedidoResumidoDto> findAll(){
 		List<Pedido> pedidos = pedidoRepository.findAll();
@@ -95,12 +93,15 @@ public class PedidoService {
 	public PedidoResumidoDto update(Pedido pedido) {
 		PedidoResumidoDto pedidoDto = modelMapper.map(pedido,PedidoResumidoDto.class);
 		pedido.setStatus(pedido.validaStatus());
+		pedido.setValorTotal(calculaValor(pedido));
+		pedido.setItemPedido(listaItens(pedido));
 		pedidoRepository.save(pedido);
-		emailController.enviarEmail(pedido.getIdPedido());
 		return pedidoDto;
 	}
 	public String atualizaItem(Pedido pedido){
 		pedido.setStatus(pedido.validaStatus());
+		pedido.setValorTotal(calculaValor(pedido));
+		pedido.setItemPedido(listaItens(pedido));
 		pedidoRepository.save(pedido);
 		return "Pedido Atualizado";
 	}
@@ -116,5 +117,20 @@ public class PedidoService {
 			}
 		}
 		return null;
+	}
+
+	public Double calculaValor(Pedido pedido){
+		Pedido novo = findByIdCompleto(pedido.getIdPedido());
+		Double valor = 0.0;
+		List <ItemPedido> itens = novo.getItemPedido();
+		for (ItemPedido itemPedido : itens){
+			valor += itemPedido.getValorLiquido();
+		}
+		return valor;
+	}
+
+	public List<ItemPedido> listaItens(Pedido pedido){
+		Pedido novo = findByIdCompleto(pedido.getIdPedido());
+        return novo.getItemPedido();
 	}
 }

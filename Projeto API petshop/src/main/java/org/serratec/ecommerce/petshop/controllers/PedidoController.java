@@ -27,7 +27,8 @@ public class 	PedidoController {
 	PedidoService pedidoService;
 	@Autowired
 	ModelMapper modelMapper;
-
+	@Autowired
+	EmailController emailController;
 	@Autowired
 	EmailService emailService;
 	
@@ -53,7 +54,10 @@ public class 	PedidoController {
 	
 	@PutMapping
 	public ResponseEntity<PedidoResumidoDto> update (@RequestBody Pedido pedido){
-		return new ResponseEntity<>(pedidoService.update(pedido), HttpStatus.OK);
+		pedidoService.update(pedido);
+		emailController.enviarEmail(pedido.getIdPedido());
+		PedidoResumidoDto pedidodto = modelMapper.map(pedido, PedidoResumidoDto.class);
+		return new ResponseEntity<>(pedidodto, HttpStatus.OK);
 	}
 
 	@PutMapping("/atualiza-item")
