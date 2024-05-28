@@ -24,6 +24,10 @@ public class ProdutoController {
 	public ResponseEntity<List<ProdutoDto>> findAll() {
 		return new ResponseEntity<>(produtoService.findAll(), HttpStatus.OK);
 	}
+	@GetMapping("/{id}/todo")
+	public ResponseEntity<Produto>findCompleto(@PathVariable Integer id) {
+		return new ResponseEntity<>(produtoService.findByIdcompleto(id), HttpStatus.OK);
+	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<ProdutoDto> findById(@PathVariable Integer id) {

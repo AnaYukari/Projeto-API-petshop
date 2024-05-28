@@ -56,7 +56,7 @@ public class 	PedidoController {
 		return new ResponseEntity<>(pedidoService.update(pedido), HttpStatus.OK);
 	}
 
-	@PutMapping("atualiza-item")
+	@PutMapping("/atualiza-item")
 	public ResponseEntity<String> atualizaItem (@RequestBody Pedido pedido){
 		return new ResponseEntity<>(pedidoService.atualizaItem(pedido), HttpStatus.OK);
 	}

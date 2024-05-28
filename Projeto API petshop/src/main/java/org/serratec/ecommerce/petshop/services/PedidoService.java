@@ -74,7 +74,7 @@ public class PedidoService {
 	
 	public String enviarEmail(Integer id) {
 		Pedido pedido = findByIdCompleto(id);
-		PedidoResumidoDto pedidoDto = findById(id);
+		PedidoResumidoDto pedidoDto = modelMapper.map(pedido,PedidoResumidoDto.class);
 
 		if (pedido.getDataEnvio()==null && pedido.getDataEntrega()==null) {
 			emailService.enviarEmail(pedido.getCliente().getEmail(),
@@ -94,8 +94,7 @@ public class PedidoService {
 	
 	public PedidoResumidoDto update(Pedido pedido) {
 		PedidoResumidoDto pedidoDto = modelMapper.map(pedido,PedidoResumidoDto.class);
-		pedidoDto.setValorTotal(pedido.getValorTotal());
-		pedido.setStatus(pedido.validaStatus()); 
+		pedido.setStatus(pedido.validaStatus());
 		pedidoRepository.save(pedido);
 		emailController.enviarEmail(pedido.getIdPedido());
 		return pedidoDto;
