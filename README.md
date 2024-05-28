@@ -91,7 +91,7 @@ spring.mail.password=SUASENHA
   LinkedIn - https://www.linkedin.com/in/yuyuka/
 
 - **Emanuel Fonseca Rodrigues Silvério**  
-  LinkedIn - (colocar link)
+  LinkedIn - https://www.linkedin.com/in/emanuel-f-2565181b6/
 
 - **Giovanne Moreira Holanda**  
   LinkedIn - https://www.linkedin.com/in/giovanne-moreira-1158b3266?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app
