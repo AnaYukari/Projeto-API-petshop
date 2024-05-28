@@ -6,10 +6,18 @@ import java.sql.Date;
 import java.util.List;
 
 public class ProdutoDto {
+	private Integer idProduto;
 	private String nome;
 	private Double valorUnitario;
     private Categoria categoria;
 
+	public Integer getIdProduto() {
+		return idProduto;
+	}
+
+	public void setIdProduto(Integer idProduto) {
+		this.idProduto = idProduto;
+	}
 	public String getNome() {
 		return nome;
 	}

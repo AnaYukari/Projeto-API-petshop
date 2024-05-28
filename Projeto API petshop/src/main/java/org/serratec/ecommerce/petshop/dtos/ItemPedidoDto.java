@@ -8,7 +8,7 @@ public class ItemPedidoDto {
 	private Double valorBruto;
 	private Integer percentualDesconto;
 	private Double valorLiquido;
-	private Produto produto;
+	private ProdutoDto produto;
 
 	public Integer getIdItemPedido() {
 		return idItemPedido;
@@ -50,11 +50,11 @@ public class ItemPedidoDto {
 		this.valorLiquido = valorLiquido;
 	}
 
-	public Produto getProduto() {
+	public ProdutoDto getProduto() {
 		return produto;
 	}
 
-	public void setProduto(Produto produto) {
+	public void setProduto(ProdutoDto produto) {
 		this.produto = produto;
 	}
 
@@ -65,7 +65,7 @@ public class ItemPedidoDto {
 				Produto: %s  R$%.2f x%s
 				Valor Bruto: R$%.2f
 				Percentual de Desconto: %s%%
-				Valor Liquido: R$%.2f""",produto.getIdProduto(), produto.getNome(), 
+				Valor Liquido: R$%.2f""",produto.getIdProduto(), produto.getNome(),
 				produto.getValorUnitario(), quantidade, valorBruto, percentualDesconto, valorLiquido);
 	}
 }
