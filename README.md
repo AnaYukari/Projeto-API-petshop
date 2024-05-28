@@ -34,12 +34,17 @@ Instale as dependências do projeto:
 mvn install
 ```
 
-Configure o banco de dados no arquivo application.properties:
+Faça uma cópia do arquivo aplication-dev.properties, e renomeia para aplication-local.properties. 
+Neste novo arquivo configure o banco de dados e o servidor de email com seus dados:
 
 ```bash
-spring.datasource.url  =  jdbc:postgresql://localhost:SUAPORTA/SEUBANCODEDADOS
-spring.datasource.username  =  SEUUSERNAME
-spring.datasource.password  =  SENHADOSEUBANCODEDADOS
+spring.datasource.url       = jdbc:postgresql://localhost:SUAPORTA/SEUBANCODEDADOS
+spring.datasource.username  = SEUUSERNAME
+spring.datasource.password  = SENHADOSEUBANCODEDADOS
+spring.mail.host            = sandbox.smtp.mailtrap.io
+spring.mail.port            = PORTADOSERVIDOREMAIL
+spring.mail.username        = SEUUSERNAME
+spring.mail.password        = SENHADOSEUSERVIDORDEEMAIL
 ```
 Execute a aplicação:
 ```bash
