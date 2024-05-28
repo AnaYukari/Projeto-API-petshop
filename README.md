@@ -94,7 +94,7 @@ spring.mail.password=SUASENHA
   LinkedIn - (colocar link)
 
 - **Giovanne Moreira Holanda**  
-  LinkedIn - (colocar link)
+  LinkedIn - https://www.linkedin.com/in/giovanne-moreira-1158b3266?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app
 
 - **João Pedro Soares De Brito**  
   LinkedIn - https://www.linkedin.com/in/jo%C3%A3o-pedro-soares-164964236/
